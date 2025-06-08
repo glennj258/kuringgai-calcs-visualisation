@@ -1,0 +1,24 @@
+.window-height {
+    // used to get scroll working, and is the view height minus any fixed elements (e.g. header)
+    height: calc(100vh - 64px)
+  }
+
+.window-width {
+    // used to get scroll working, and is the view height minus any fixed elements (e.g. header)
+    width: calc(100vw - 80px)
+  }
+
+.my-custom-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.mapboxgl-popup-tip {
+  display: none;
+  opacity: 0;
+}

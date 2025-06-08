@@ -1,0 +1,15 @@
+<!-- <div class="bg-white shadow-md rounded-lg p-4 w-64"> -->
+    <!-- <h3 class="text-lg font-semibold mb-3">{{ title() }}</h3> -->
+<div class="bg-tealWhite p-4 rounded">
+    <div class="text-darkTeal font-bold text-sm pb-1">{{ title() }}</div>
+    <div class="text-darkTeal text-sm pb-1">{{ subtitle() }}</div>
+    <ul class="flex flex-col space-y-2">
+        @for (item of items(); track item) {
+            <div>
+            <span class="inline-block w-4 h-4 rounded px-4 mx-4" [style.background-color]="item.color"></span>
+              <span class="text-sm">{{ item.label }}</span>
+            </div>
+            
+        }
+    </ul>
+  </div>

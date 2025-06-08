@@ -1,0 +1,155 @@
+<div class="window-height">
+
+    <!-- Top left info field on map -->
+    <div class="overlay absolute top-20 left-4 z-10">
+        <div class="bg-tealWhite p-4 rounded">
+            @if (pageNum <= 3 ) {
+                <div class="font-bold text-darkTeal">
+                    Performance of councils against housing targets
+                </div>
+                <div class="text-sm">
+                    FY2023-24
+                </div>
+                <!-- <img src="https://mapprod1.environment.nsw.gov.au/arcgis/rest/services/Planning/EPI_Primary_Planning_Layers/MapServer/export?bbox=16828089.27075925%2C-4005461.975084244%2C16832311.98097196%2C-3999574.5425761403&bboxSR=102100&imageSR=102100&size=1248%2C1740&dpi=192&format=png32&transparent=true&layers=show%3A2&f=image" alt="ArcGIS Map" /> -->
+                <!-- <img src="https://mapprod3.environment.nsw.gov.au/arcgis/services/Planning/EPI_Primary_Planning_Layers/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.3.0&FORMAT=image%2Fpng&STYLES=&TRANSPARENT=true&LAYERS=0&EXCEPTIONS=INIMAGE&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&BBOX=16750104.630300384%2C-3991847.3651650436%2C16828376.147264406%2C-3913575.848201023" alt="WMS Map" />    -->
+            }
+            @if (pageNum >= 4 && pageNum <= 5) {
+                <div class="font-bold text-darkTeal">
+                    Housing Stock in Ku-ring-gai
+                </div>
+            }
+            @if (pageNum >= 6) {
+                <div class="font-bold text-darkTeal">
+                    Ku-ring-gai Zoning
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- <div class="overlay absolute window-height window-width p-2 z-40">
+        <div class="w-full h-full bg-tealWhite rounded-xl">
+            <img src="honours_thumbnail.png" class="w-full h-full rounded-xl"/>
+        </div>
+    </div> -->
+
+    <!-- Bottom left info field on map -->
+     @if (performingCouncilsLoaded && flySydneyComplete && displayLowestLgas  && pageNum == 2) {
+        <div class="overlay absolute bottom-10 left-4 z-10">
+            <div class="bg-tealWhite p-4 rounded">
+                <div class="text-darkTeal font-bold text-sm pb-1">
+                Worst performing councils
+                </div>
+                <!-- <div class="text-sm">
+                   FY2023-24
+                </div> -->
+                @for (featureProperties of lowestApprovalLgas; track featureProperties) {
+                    <div class="text-sm flex flex-row justify-between">
+                        <div>
+                            {{featureProperties['name']}}
+                        </div>
+                        <div>
+                            {{featureProperties['value']}}
+                        </div>
+                    </div>
+                  }
+            </div>
+        </div>
+        <div class="overlay absolute bottom-10 right-24 z-10">
+            <app-map-legend [title]="'Percent of Housing Target Met'" [items]="lgaApprovalsLegend"></app-map-legend>
+        </div>
+     } @else if (internalMigrationLoaded && displaySydneyOutflows && pageNum == 3) {
+        <div class="overlay absolute bottom-10 left-4 z-10">
+            <div class="bg-tealWhite p-4 rounded">
+                <div class="text-darkTeal font-bold text-sm pb-1">
+                Net Internal Migration
+                </div>
+                <div class="text-sm">
+                   2016-2021
+                </div>
+                @for (featureProperties of sydneyInternalMigration; track featureProperties) {
+                    <div class="text-sm flex flex-row justify-between gap-4">
+                        <div>
+                            {{featureProperties['name']}}
+                        </div>
+                        <div>
+                            {{featureProperties['value']}}
+                        </div>
+                    </div>
+                  }
+            </div>
+        </div>
+        <div class="overlay absolute bottom-10 right-24 z-10">
+            <app-map-legend [title]="'Percent of Housing Target Met'" [items]="lgaApprovalsLegend"></app-map-legend>
+        </div>
+     }
+     @if (pageNum === 4) {
+        <div class="overlay absolute bottom-10 left-4 z-10">
+            <div class="bg-tealWhite p-4 rounded">
+                <app-pie-chart></app-pie-chart>
+            </div> 
+        </div>
+        <div class="overlay absolute bottom-10 right-24 z-10">
+            <app-map-legend [title]="'Population Density'" [subtitle]="'2021 Population / km²'" [items]="popDensLegend"></app-map-legend>
+        </div>
+    }
+    @if (pageNum === 5) {
+        <div class="overlay absolute bottom-10 left-4 z-10">
+            <div class="bg-tealWhite p-4 rounded">
+                <app-bar-chart></app-bar-chart>
+            </div> 
+        </div>
+        <div class="overlay absolute bottom-10 right-24 z-10">
+            <app-map-legend [title]="'Population Density Change'" [subtitle]="'2016-2021 Population / km²'" [items]="popDensChangeLegend"></app-map-legend>
+        </div>
+    }
+    @if (pageNum === 6) {
+        <div class="overlay absolute bottom-10 right-24 z-10">
+            <app-map-legend [title]="'Main residential zones'" [items]="zoningLegend"></app-map-legend>
+        </div>
+        <div class="overlay absolute bottom-96 left-4 z-10">
+            <div class="bg-tealWhite p-4 rounded">
+                <div class="w-[32rem] h-full flex flex-col text-darkTeal gap-2">
+                    <ul class="list-disc pl-6">
+                        <li class="mb-4">Ku-ring-gai is primarily zoned for detached housing.</li>
+                        <li class="mb-4">Estimated zoned capacity for townhouses is low (~2700 dwellings)</li>
+                        <li class="mb-4">Broader upzoning is needed across the area</li>
+                        <li class="">Enabling townhouses in R2 zones—through upzoning to R1—would significantly increase housing diversity and supply</li>
+                      </ul>
+                </div>
+            </div>
+        </div>
+    }
+    @if (pageNum === 7) {
+        <div class="overlay absolute bottom-10 left-4 z-10">
+            <div class="bg-tealWhite p-4 rounded">
+                <app-other-bar-chart></app-other-bar-chart>
+            </div> 
+        </div>
+    }
+    
+    
+        
+    <div class="flex flex-row">
+        <div id="map" class="window-height" style="width: 100%"></div>
+        <div class="flex flex-col justify-end w-20"> 
+            <!-- Back button -->
+            <div class="flex rounded-full bg-tealGrey m-3">
+                <button (click)="prevButtonPressed()" class="p-3">
+                    <svg class="h-7 text-darkTeal" viewBox="1 1 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
+                        <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                      
+                </button>
+                  
+             </div>
+             <!-- Next button -->
+            <div class="flex rounded-full bg-tealGrey m-3">
+                <button (click)="nextButtonPressed()" class="p-3">
+                    <svg class="h-7 text-darkTeal" viewBox="1 1 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+             </div>
+        </div>
+    </div>
+    
+</div>
